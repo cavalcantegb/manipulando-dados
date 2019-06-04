@@ -11,6 +11,10 @@
 
     <p>Nome Iniciado: {{ nome }}</p>
     <p>Nome Filtrado: {{ nome | formataNome }}</p>
+
+    <input v-model="busca" type="text">
+    <p v-text="resultado"></p>
+    
   </div>
 </template>
 
@@ -20,12 +24,29 @@ export default {
   data () {
     return {
       total: 10,
-      nome: 'jose antonio'
+      nome: 'jose antonio',
+      resultado: '',
+      busca: ''
+    }
+  },
+  watch: {
+      busca: function (novoValor, valorAntigo) {
+      this.resultado = 'Aguardando o término da digitação...'
+      console.log('Novo valor: ' + novoValor)
+      this.recolheResposta()
+      console.log('Valor antigo: ' + valorAntigo)
     }
   },
   methods: {
     calcula( sinal ) {
       this.total = (sinal == '-') ? this.total - 1 : this.total + 1
+    },
+    recolheResposta() {
+      let valor = this.busca
+      setTimeout( () => {
+        if(valor == this.busca)
+          this.resultado = 'Terminou de digitar...'
+      }, 500)
     }
   },
   filters: {

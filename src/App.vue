@@ -5,6 +5,9 @@
     <button @click="calcula('-')"> - </button>
     <button @click="calcula('+')"> + </button>
 
+    <p>Nome Computado: {{ nomeFormatado }}</p>
+    <label>Input a computar</label>
+    <input v-model="nomeFormatado" type="text">
 
     <p>Nome Iniciado: {{ nome }}</p>
     <p>Nome Filtrado: {{ nome | formataNome }}</p>
@@ -35,6 +38,17 @@ export default {
       resultado += nome.charAt(0).toUpperCase() + nome.slice(1) + ' '
       return resultado
       
+    }
+  },
+  computed: {
+    nomeFormatado: {
+      get: function() {
+        console.log('executando computed')
+        return this.nome.toUpperCase()
+      },
+      set: function(novoValor) {
+        this.nome = novoValor.substring(0, 3)
+      }
     }
   }
 }

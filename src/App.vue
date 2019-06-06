@@ -15,6 +15,11 @@
     <input v-model="busca" type="text">
     <p v-text="resultado"></p>
     
+    <input v-model="nome" type="text">
+    <small v-text="nome"></small>
+
+    <button @click="funcao(nome)"> Botao Top </button>
+    <p>Numero de caracteres: {{ nome | numeroCaracteres }}</p>
   </div>
 </template>
 
@@ -47,6 +52,9 @@ export default {
         if(valor == this.busca)
           this.resultado = 'Terminou de digitar...'
       }, 500)
+    },
+    funcao(nomeDoAmiguinho) {
+      console.log(nomeDoAmiguinho + " eh o nome do amiguinho")
     }
   },
   filters: {
@@ -59,6 +67,9 @@ export default {
       resultado += nome.charAt(0).toUpperCase() + nome.slice(1) + ' '
       return resultado
       
+    },
+    numeroCaracteres( valor ) {
+      return valor.length
     }
   },
   computed: {
